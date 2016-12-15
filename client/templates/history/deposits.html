@@ -1,0 +1,73 @@
+<template name="depositHistoryAdmin">
+{{> navbar}}
+<div class="container">
+<h4>Find deposit by ID</h4>
+
+<form role="form" class="form-inline" id ="findDeposit">
+  <div class="input-group">
+    <input type="text" class="form-control" id="depositid" placeholder="Deposit ID">
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary">Find</button>
+    </div>
+  </div>
+</form>
+
+<br>
+{{#if deposit}}
+  {{#with deposit}}
+      <h3>Deposit details</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Dposit ID</th>
+            <th>User</th>
+            <th>Items</th>
+            <th>Bot</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>{{_id}}</td>
+            <td>UserId: {{userid}}, steamid: {{steamid}}</td>
+            <td>{{#each this.items}} {{this.name}}({{this.price}})<br> {{/each}}</td>
+            <td>{{bot}}</td>
+            <td>{{status}} {{#if this.errText}}{{errText}}{{/if}} {{#if offerWaiting status}}<br><a href="#" class="cancelOffer">Cancel offer</a>{{/if}}</td>
+            <td>{{formatTime date}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+      <br>
+  {{/with}}
+{{/if}}
+
+<h3>Deposits list (latest 200)</h3>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Deposit ID</th>
+        <th>User</th>
+        <th>Items</th>
+        <th>Bot</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>UserId: {{userid}}, steamid: {{steamid}}</td>
+        <td>{{#each this.items}} {{this.name}}({{this.price}})<br> {{/each}}</td>
+        <td>{{bot}}</td>
+        <td>{{status}} {{#if offerWaiting status}}<br><a href="#" class="cancelOffer">Cancel offer</a>{{/if}}</td>
+        <th>{{formatTime date}}</th>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</template>

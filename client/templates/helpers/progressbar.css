@@ -1,0 +1,15 @@
+#progressBar {
+    min-height: 22px;
+    width: 400px;
+    height: 22px;
+    border: 1px solid #111;
+    background-color: #292929;
+}
+#progressBar div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px;
+    width: 0;
+    background-color: #0099ff;
+}

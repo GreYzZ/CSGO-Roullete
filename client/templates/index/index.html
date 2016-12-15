@@ -1,0 +1,167 @@
+<template name="index">
+
+  {{> navbar}}
+<div class="col-md-3">
+<div class="alerts">
+  <div class="linkgroup">
+    <a href="http://steamcommunity.com/groups/Csgo-Ghost" target="_blank"><i class="fa fa-steam"></i></a>
+    <a href="https://twitter.com/Csgo_Ghost" target="_blank"><i class="fa fa-twitter"></i></a><br>
+  </div>
+<br>
+  <b>Users online</b>: {{usersOnline}}<br>
+</div>
+<div class="chat">
+<h3>Chat</h3>
+{{> chat}}
+{{> input}}
+</div>
+{{> giveaway}}
+<br><br><br><br><br>
+
+</div>
+<div class="col-md-8 roulette">
+
+    <div class="alert alert-info">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{{indexAlert}}}
+    </div>
+
+  <div id="progressbar"></div>
+  <div class="bg">
+    <div class="ticker"></div>
+  </div>
+  <br>
+  {{> history}}
+  {{handleGame}}
+  {{#if currentUser}}<h3>Balance: <span id="balance">{{toInt currentUser.profile.money}}</span> coins</h3>
+    {{else}}<h3>Please login to place bets</h3>
+  {{/if}}<br>
+  {{> amountButtons}}
+  {{> betform}}
+  {{> betButtons}}
+
+
+</div>
+{{> footer}}
+</template>
+
+<template name="amountButtons">
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default bet100 {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">+100</button>
+  <button type="button" class="btn btn-default bet500 {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">+500</button>
+  <button type="button" class="btn btn-default bet1000 {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">+1000</button>
+  <button type="button" class="btn btn-default bet10000 {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">+10000</button>
+  <button type="button" class="btn btn-default betsemi {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">1/2</button>
+  <button type="button" class="btn btn-default betfull {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">Max</button>
+  <button type="button" class="btn btn-default clearbet {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">Clear</button>
+  <!--
+  <button type="button" class="btn btn-default clear {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">Remove my bet</button>
+  -->
+</div>
+{{#if currentUser}}
+ &nbsp; <b>Current: {{toInt currentBet}}. Your bets in this round: {{currentBetsCount}}/3</b>
+{{/if}}
+
+</template>
+
+<template name="betform">
+<div class="betform">
+  <form role="form">
+    {{#unless currentUser}}
+      <div class="form-group">
+        <input type="number" class="form-control betamount" name = "betf" id="betamount" placeholder="Please login to place bets..." readonly="{{#if betsClosed}}readonly{{/if}}">
+      </div>
+    {{/unless}}
+    {{#if currentUser}}
+    <div class="form-group">
+      <input type="number" class="form-control" id="betamount" name = "betf" pattern= "[0-9]" placeholder="Bet amount..." readonly="{{#if betsClosed}}readonly{{/if}}">
+    </div>
+    {{/if}}
+  </form>
+</div>
+</template>
+
+<template name="betButtons">
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 red">
+    <button type="button" class="btn btn-block betRed {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">
+      Red x2
+    </button>
+    <table class="table table-bordered">
+    <thead><th></th></thead>
+    <tbody>
+    {{#if totalRed}}
+    <tr>
+    <td><h4>Total: <span id="totalRed">{{toInt totalRed}}</span></h4></td>
+    </tr>
+    {{/if}}
+    {{#each redBets}}
+    <tr>
+    <td>
+    <img src="{{userPic userid}}" width="20" height="20">
+    {{username}}: {{toInt amount}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero">
+    <button type="button" class="btn btn-block betZero {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">
+      Zero x20
+    </button>
+    <table class="table table-bordered">
+    <thead><th></th></thead>
+    <tbody>
+    {{#if totalZero}}
+    <tr>
+    <td><h4>Total: <span id="totalZero">{{toInt totalZero}}</span></h4></td>
+    </tr>
+    {{/if}}
+    {{#each bombBets}}
+    <tr>
+    <td>
+    <img src="{{userPic userid}}" width="20" height="20">
+    {{username}}: {{toInt amount}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 black">
+    <button type="button" class="btn btn-block betBlack {{#if betsClosed}}disabled{{/if}} {{#unless currentUser}}disabled{{/unless}}">
+      Black x2
+    </button>
+    <table class="table table-bordered">
+    <thead><th></th></thead>
+    <tbody>
+    {{#if totalBlack}}
+    <tr>
+    <td><h4>Total: <span id="totalBlack">{{toInt totalBlack}}</span></h4></td>
+    </tr>
+    {{/if}}
+    {{#each ctBets}}
+    <tr>
+    <td>
+    <img src="{{userPic userid}}" width="20" height="20">
+    {{username}}: {{toInt amount}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>
+  </div>
+
+</div>
+</template>
+
+<template name="history">
+<div class="col-md-12 history">
+  {{#each items}}
+    <span class="fa fa-stack fa-lg" style="color: {{side this.result}}; font-size: 1.2em;">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-inverse fa-stack-1x">{{this.result}}</i>
+    </span>
+    <!--<i class="fa fa-stack fa-lg result-history" style="color: {{side this.result}}; font-size: 1.8em;"></i>-->
+
+  {{/each}}
+</div>
+</template>

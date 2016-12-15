@@ -1,0 +1,110 @@
+/* CSS declarations go here */
+.logo {
+  /*text-align: center;*/
+  margin-top: -50px;
+}
+.chat {
+  margin-top: 10px;
+  background-color: white;
+}
+.alerts {
+  background-color: white;
+  padding: 0px;
+  margin-right: -10px;
+}
+.ticker {
+  height: 75px;
+  position: relative;
+  left: 50%;
+  width: 3px;
+  background-color: white;
+}
+.bg {
+  background-image: url('roulette.png');
+  overflow: hidden;
+  min-height: 75px;
+}
+.centered {
+  text-align: center;
+}
+.betform {
+  margin-top: 10px;
+}
+.red {
+  width: 33.3%;
+}
+.black {
+  width: 33.3%;
+}
+.zero {
+  width: 33.3%;
+}
+.betList {
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 500ms 200ms ease-in;
+}
+.ulBetList {
+  list-style-type: none;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+.history {
+  margin: 0 auto;
+  text-align: center;
+}
+.totalTerr {
+  display: inline;
+}
+.applied {
+  color: green;
+  font-weight: bold;
+}
+.fa-facebook {
+  font-size: 2em;
+  color: gray;
+}
+.fa-vk {
+  font-size: 2em;
+}
+.fa-twitter {
+  font-size: 2em;
+  color: gray;
+}
+.fa-twitch {
+  font-size: 2em;
+}
+.fa-steam {
+  font-size: 2em;
+  color: gray;
+}
+.linkgroup {
+  display: inline-block;
+  padding: 3px;
+  background-color: #F2F2F2;
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+.overlay-content {
+  width: 50%;
+  margin: 10% auto;
+  border-radius: 5px;
+  height: 500px;
+  background-color: white;
+}
+.result-history {
+  display: inline-block;
+}
+.resultNum {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

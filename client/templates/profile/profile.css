@@ -1,0 +1,106 @@
+.depositItems {
+  margin: 5px 5px;
+  border: solid 1px gray;
+  min-height: 170px;
+}
+
+.depositItemPrice {
+  display: block;
+  background-color: green;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.depositButton {
+  display: block;
+  position: absolute;
+  top: 2;
+  right: 0;
+}
+.updateMe {
+  margin-top: 10px;
+}
+/*
+.profile {
+  margin: 5px 10px;
+}
+*/
+.fa-volume-up {
+  font-size: 2em;
+}
+.fa-volume-down {
+  font-size: 2em;
+}
+.enableSound, .disableSound {
+  font-size: 1.3em;
+}
+/*
+.well{
+    background: rgba(245, 245, 245, 0.3);
+}
+*/
+.iconUpdateUser, .iconsSteamSquare, .iconMoney {
+  font-size: 1.1em;
+}
+
+.sendCoins {
+  background-color: #EDEDED;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  padding: 10px;
+}
+/*
+.tradelink {
+  margin-left: 5px;
+}
+*/
+.userInfo {
+  padding: 10px;
+  background-color: #EDEDED;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.tradelink {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #EDEDED;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+.withdrawHistory {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #EDEDED;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+.sameLevel {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.sameLevel > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.centerTh {
+  text-align: center;
+}
+.centerTd {
+  text-align: center;
+}

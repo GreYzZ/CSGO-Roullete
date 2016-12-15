@@ -1,0 +1,28 @@
+<template name="coinsTransfersHistory">
+{{> navbar}}
+<div class="container">
+<h1>Coins transfers history</h1>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sender</th>
+        <th>Recepient</th>
+        <th>Value</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td><a href="https://steamcommunity.com/profiles/{{this.senderSteamId}}" target="_blank">{{getUsernameById this.senderId}}</a></td>
+        <td><a href="https://steamcommunity.com/profiles/{{this.recepientSteamId}}" target="_blank">{{getUsernameById this.recepientId}}</a></td>
+        <td>{{this.amount}}</td>
+        <td>{{this.status}}</td>
+        <td>{{formatTime date}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div> 
+</template>

@@ -1,0 +1,3 @@
+meteor mongo
+wait
+pause

@@ -1,0 +1,75 @@
+<template name="withdrawsHistoryAdmin">
+{{> navbar}}
+<div class="container">
+<h4>Find withdraw by ID</h4>
+
+<form role="form" id ="findWithdraw">
+  <div class="form-inline">
+  <div class="form-group">
+    <label for="withdrawid">withdraw ID:</label>
+    <input type="text" class="form-control" id="withdrawid">
+  </div>
+  <button type="submit" class="btn btn-primary">Find</button>
+  </div>
+</form>
+
+<br>
+<hr />
+{{#if withdraw}}
+  {{#with withdraw}}
+      <h3>Withdraw details</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Withdraw ID</th>
+            <th>User</th>
+            <th>Items</th>
+            <th>Bot</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>{{_id}}</td>
+            <td>UserId: {{userid}}, steamid: {{steamid}}</td>
+            <td>{{#each this.items}} {{this.name}}({{this.price}})<br> {{/each}}</td>
+            <td>{{bot}}</td>
+            <td>{{status}} {{#if offerWaiting status}}<br><a href="#" class="cancelOffer">Cancel offer</a>{{/if}}</td>
+            <td>{{formatTime date}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+      <br>
+  {{/with}}
+{{/if}}
+
+<h3>Withdraws list (latest 200)</h3>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Withdraw ID</th>
+        <th>User</th>
+        <th>Items</th>
+        <th>Bot</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>UserId: {{userid}}, steamid: {{steamid}}</td>
+        <td>{{#each this.items}} {{this.name}}({{this.price}})<br> {{/each}}</td>
+        <td>{{bot}}</td>
+        <td>{{status}} {{#if offerWaiting status}}<br><a href="#" class="cancelOffer">Cancel offer</a>{{/if}}</td>
+        <th>{{formatTime date}}</th>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</template>

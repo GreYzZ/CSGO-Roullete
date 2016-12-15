@@ -1,0 +1,38 @@
+<template name="tickets">
+{{> navbar}}
+<h1>Support tickets</h1>
+<hr />
+Filter: 
+<a href="#" class="showAll">Show all</a> | 
+<a href="#" class="showCurrent">Not resolved</a> | 
+<a href="#" class="showResolved">Only resolved</a> | 
+
+
+<hr />
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{category}}</td>
+        <td>{{email}}</td>
+        <td>{{content}}</td>
+        <td>{{status}}</td>
+        <td>
+            {{#if problemResolved this._id}}<a href="#" class="unresolved">Mark as unresolved</a>{{else}}
+            <a href="#" class="resolved">Mark as resolved</a>
+            {{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

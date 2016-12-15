@@ -1,0 +1,76 @@
+.item {
+  width: 250px;
+  height: 250px;
+}
+.withdrawItem {
+  text-align: center;
+  background-color: #4D4D4D;
+  width: 140px;
+  height: 150px;
+  color: white;
+  margin: 2px;
+  font-size: 0.9em;
+}
+.withdrawImage {
+  margin-top: 5px;
+}
+.withdrawBtn, .addToOffer {
+  margin: 0px !important;
+  padding: 0px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 0px;
+}
+.removeBtn {
+  margin: 0px !important;
+  padding: 0px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 0px;
+  color: black;
+}
+.createWithdrawOffer {
+    margin: 10px 0px !important;
+    padding: 3px 0px !important;
+    border-radius: 0px;
+}
+.offersTable {
+  margin-right: 10px;
+  padding: 0px;
+}
+.offersTable > thead > tr > th {
+  padding: 0px !important;
+}
+.offersTable > tbody > tr > td {
+  padding: 0px !important;
+}
+.offersTable th {
+  padding: 0px;
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  min-height: 120px;
+}
+.offersTable td {
+  padding: 0px;
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  min-height: 120px;
+}
+.tableItem {
+  padding: 0px;
+  text-align: center;
+  background-color: #4D4D4D;
+  min-height: 120px;
+  width: 120px;
+  height: 140px;
+  color: white;
+  margin: 0px;
+  font-size: 0.9em;
+}
+.filterWitdrawItemsPriceLH, .filterWitdrawItemsPriceHL, .filterWitdrawItemsNameLH, .filterWitdrawItemsNameHL {
+  font-size: 1.3em;
+}

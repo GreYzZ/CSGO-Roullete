@@ -1,0 +1,38 @@
+.depositItems {
+  margin: 5px 5px;
+  border: solid 1px gray;
+  min-height: 170px;
+}
+
+.depositItemPrice {
+  display: block;
+  background-color: green;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.depositButton {
+  display: block;
+  position: absolute;
+  top: 2;
+  right: 0;
+}
+.updateMe {
+  margin-top: 10px;
+}
+.depositItem {
+  margin-top: 15px;
+  width: 180px;
+  height: 180px;
+}
+.depositName {
+  font-size: 0.9em;
+}
+.codes {
+  padding: 10px;
+  border: solid 2px #00bd16;
+  
+}

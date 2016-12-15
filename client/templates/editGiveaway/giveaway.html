@@ -1,0 +1,28 @@
+<template name="editGiveaway">
+  {{#if superAdmin currentUser._id}}
+  {{> navbar}}
+  <div class="container">
+  <h1> Edit giveaway </h1>
+    <form role="form">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title">
+      </div>
+      <div class="form-group">
+        <label for="description">Item description</label>
+        <input type="text" class="form-control" id="description">
+      </div>
+      <div class="form-group">
+        <label for="image">Link to image</label>
+        <input type="text" class="form-control" id="image">
+      </div>
+      <div class="form-group">
+        <label for="link">Link to giveaway</label>
+        <input type="text" class="form-control" id="link">
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <button type="submit" class="btn btn-primary removeGiveaway">Remove giveaway</button>
+  </div>
+  {{/if}}
+</template>

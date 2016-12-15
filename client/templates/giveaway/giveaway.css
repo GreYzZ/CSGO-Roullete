@@ -1,0 +1,9 @@
+.giveawayHeader {
+  vertical-align: middle;
+}
+.giveawayRow {
+  display: flex;
+  /* align horizontal */
+  align-items: center;
+}
+

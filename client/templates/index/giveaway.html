@@ -1,0 +1,11 @@
+<template name="giveaway">
+  <div class="giveaway">
+    {{#with giveaway}}
+    <div class="centered giveAwayHeader"><h3>{{{title}}}</h3></div>
+    <img src="{{image}}" class="img-responsive">
+    <span class="giveaway-description">{{{description}}}</span>
+    <a href="{{pathFor 'currentGiveaway'}}"><button type="button" class="btn btn-info btn-block giveawayApplyBtn">Enter now</button></a>
+    {{/with}}
+  </div>
+
+</template>

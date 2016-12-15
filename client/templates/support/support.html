@@ -1,0 +1,28 @@
+<template name="support">
+{{> navbar}}
+<div class="container">
+<form role="form" id ="support">
+  <div class="form-group">
+    <label for="category">Please select category</label>
+      <select class="form-control" id="category">
+        <option>Deposits/Withdraws</option>
+        <option>Betting</option>
+        <option>Advertising/Sponsorship</option>
+        <option>Item Pricing</option>
+        <option>Other</option>
+      </select>
+  </div>
+  <div class="form-group">
+    <label for="content">Your question</label>
+    <textarea class="form-control" rows="10" id="content"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="email">Your email</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
+
+</div>
+{{> footer}}
+</template>

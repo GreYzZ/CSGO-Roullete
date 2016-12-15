@@ -1,0 +1,16 @@
+<template name="editfaq">
+{{> navbar}}
+
+<form role="form" id ="editFaq">
+<div class="form-group">
+  <label for="summernote">Comment:</label>
+  <textarea class="form-control" rows="5" id="summernote" value="{{faq}}"></textarea>
+</div>
+<button type="submit" class="btn btn-primary">Save</button>
+</form>
+<script>
+      $(function() {
+          $('#summernote').summernote();
+      });
+  </script>
+</template>

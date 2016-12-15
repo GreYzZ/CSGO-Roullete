@@ -1,0 +1,209 @@
+<template name="profile">
+{{> navbar}}
+  <div class="container">
+    <div class="row sameLevel">
+      <div class="col-md-6 col-sm-6 col-xs-12 userInfo">
+          <h1><img src="{{userPic currentUser._id}}" width="50" height="50" style="border-radius: 3px;">{{currentUser.profile.username}}</h1>
+          <i class="fa fa-refresh iconUpdateUser"><a href="#" class="updateSteamProfile"> Update steam username/userpic</a></i><br>
+          <i class="fa fa-steam-square iconsSteamSquare"> Your steamid 64: <b>{{currentUser.profile.id}}</b></i><br>
+          <i class="fa fa-money iconMoney"> Your balance: <b>{{toInt currentUser.profile.money}}</b> coins</i><br>
+          Total bets: {{toInt currentUser.profile.totalBets}}<br>
+          Total wins: {{toInt currentUser.profile.totalWins}}<br>
+      </div>
+      <div class="col-md-5 col-md-offset-1 sendCoins">
+        {{> sendcoins}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 tradelink">
+        {{> tradelink}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 withdrawHistory">
+          {{> withdrawsHistory}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 withdrawHistory">
+          {{> gameHistory}}
+      </div>
+    </div>
+  </div>
+
+  {{> footer}}
+
+
+
+</template>
+
+<template name="sendcoins">
+<h3>Send coins to another user</h3>
+<form role="form" id ="sendcoins">
+  <div class="form-group">
+    <label for="steamid">User steam id</label>
+    <input type="text" class="form-control" id="steamid">
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input type="number" class="form-control" id="amount">
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
+</template>
+
+
+<template name='tradelink'>
+
+<h3>Your steam trade offer link</h3>
+You can find your tradelink <a href="http://steamcommunity.com/profiles/{{currentUser.profile.id}}/tradeoffers/privacy" target="_blank">on this page</a>
+<form role="form tradelink" id = "tradelink">
+  <div class="form-group">
+    {{#if tradeLinkApplyed}}
+    You have already applyed trade link. You can change it in form below.<br>
+    Current secret token from link: {{currentUser.profile.tradelink}}
+    {{else}}
+    <label for="tradelink">For withdraw items you should apply trade link to your account.</label>
+    {{/if}}
+    <input type="text" class="form-control" id="tradelink">
+  </div>
+  {{#if tradeLinkApplyed}}
+  <button type="submit" class="btn btn-primary">Update</button>
+  {{else}}
+  <button type="submit" class="btn btn-primary">Apply</button>
+  {{/if}}
+
+</form>
+
+</template>
+
+
+<template name="withdrawsHistory">
+
+<h1>{{{chooseHistoryTypeHeader}}} {{#if lengthNull items}}is empty{{/if}}</h1>
+{{{chooseHistoryType}}}
+{{#if lengthNull items}}
+{{else}}
+<table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Bot name</th>
+        <th>Items</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>{{bot}}</td>
+        <td>{{#each this.items}} {{this.name}}({{this.price}})<br> {{/each}}</td>
+        <td>{{status}} {{#if isWaiting status}}<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>{{/if}}
+         {{#if isSended status}}. Waiting for your offer accepting <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>{{/if}}
+        </td>
+        <td>{{price}} coins</td>
+        <td>{{formatTime date}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-primary btn-block showAllWithdrawsHistory">See all</button>
+{{/if}}
+</template>
+
+<template name="withdrawsHistoryFull">
+{{> navbar}}
+<div class="container">
+<h1>{{{chooseHistoryTypeHeader}}}</h1>
+{{{chooseHistoryType}}}
+<table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Bot name</th>
+        <th>Items</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>{{bot}}</td>
+        <td>{{#each this.items}} {{this.name}}({{this.price}})<br> {{/each}}</td>
+        <td>{{status}}</td>
+        <td>{{price}} coins</td>
+        <td>{{formatTime date}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</template>
+
+<template name="gameHistory">
+<h1>Bets history (wins) {{#if lengthNull items}}is empty{{/if}}</h1>
+{{#unless lengthNull items}}
+<table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th>Game ID</th>
+        <th class="centerTh">Side</th>
+        <th>Bet</th>
+        <th>Earnings</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{gameId}}</td>
+
+        <td class="centerTd"><i class="fa fa-circle " style="color: {{historySide this.side}}; font-size: 1.8em;"></i></td>
+        <td>{{this.bet}}</td>
+        <td>{{this.earnings}}</td>
+        <td>{{formatTime this.date}}</td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+
+  </table>
+  <button type="button" class="btn btn-primary btn-block showAllGameHistory">See all</button>
+{{/unless}}
+</template>
+<template name="betsHistoryFull">
+{{> navbar}}
+<div class="container">
+<h1>Your full bets history (wins)</h1>
+<table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th>Game ID</th>
+        <th class="centerTh">Side</th>
+        <th>Bet</th>
+        <th>Earnings</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{gameId}}</td>
+        <td class="centerTd"><i class="fa fa-circle " style="color: {{historySide this.side}}; font-size: 1.8em;"></i></td>
+        <td>{{this.bet}}</td>
+        <td>{{this.earnings}}</td>
+        <td>{{formatTime this.date}}</td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+
+  </table>
+</div>
+</template>

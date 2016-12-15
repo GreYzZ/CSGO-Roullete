@@ -1,0 +1,59 @@
+<template name="chat">
+  {{#if notInDefaultGroup}}
+  <div class="dropdown">
+    <button class="btn selectChannel dropdown-toggle" type="button" data-toggle="dropdown">Room: {{roomName}}
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      {{{handleChatRooms}}}
+    </ul>
+</div>
+<br>
+  {{/if}}
+  <div class="messages" id="messages">
+
+    {{#each messages}}
+    <div class="message" style="margin-top: 5px;">
+    <img src="{{userpic}}" width="30" height="30">
+    <strong style="color: {{chatColor userId}};">{{username}}{{#unless chatBanned userId}}{{#if canBan userId}}(<a href="#" class="banUser">ban</a>){{/if}}
+    {{/unless}}{{#if canBan userId}}{{#if chatBanned userId}}(<a href="#" class="unbanUser">unban</a>){{/if}}<a href="#" class="removeMessage">Rm</a>{{/if}}:</strong> {{message}}
+    </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="input">
+{{#if currentUser}}
+<div class="form-group">
+  <input type="text" class="form-control squareInputBorders" id="message" placeholder="{{chatPlaceholder}}">
+</div>
+<a href="#" data-toggle="modal" data-target="#myModal">Chat rules</a>
+<br>
+{{/if}}
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Chat rules</h4>
+      </div>
+      <div class="modal-body">
+      <ul class="chatrules">
+        <li>No Spamming</li>
+        <li>No Begging for Coins</li>
+        <li>No Posting Promo Codes</li>
+        <li>No Promo Codes in Profile Name</li>
+        <li>No Advertising "Prediction Groups"</li>
+        <li>One "Prediction" Per Roll</li>
+        <li>No Buying/Selling Coins</li>
+      </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</template>

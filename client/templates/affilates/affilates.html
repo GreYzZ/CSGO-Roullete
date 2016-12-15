@@ -1,0 +1,96 @@
+<template name="affiliates">
+{{> navbar}}
+<div class="container">
+  <h1>Information</h1>
+  <table class="table table-bordered">
+    <tbody>
+      <tr class="rrr">
+        <td class="col-md-3">Your referal link</td>
+        <td class="col-md-9">
+          {{#if currentUser.profile.promocode}}
+          <a href="{{pathFor 'ref' code=currentUser.profile.promocode}}" target="_blank">http://csgo-ghost.com/ref/{{currentUser.profile.promocode}}</a> | <a href="#" data-toggle="modal" data-target="#promocodeModal">edit</a>
+          {{else}}
+          You have no referal link yet, <a href="#" data-toggle="modal" data-target="#promocodeModal">setup it now</a>
+          {{/if}}
+        </td>
+      </tr>
+      <tr class="rrr">
+        <td class="col-md-3">Affiliate level</td>
+        <td class="col-md-9">{{{affilateLevel}}}</td>
+      </tr>
+      <tr class="rrr">
+        <td class="col-md-3">Depositors</td>
+        <td class="col-md-9">{{depositors}}</td>
+      </tr>
+      <tr class="rrr">
+        <td class="col-md-3">Total bet</td>
+        <td class="col-md-9">{{toInt currentUser.profile.totalAffilateBonus}}</td>
+      </tr>
+      <tr class="rrr">
+        <td class="col-md-3">Available now</td>
+        <td class="col-md-9">{{toInt currentUser.profile.availableBonus}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <button type="button" class="btn btn-success btn-block collectBonus">Collect coins</button>
+  {{#if affilates}}
+  <h1>Your affiliates</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><b>User</b></th>
+        <th style="text-align: center;"><b>Deposited</b></th>
+        <th><b>Joined</b></th>
+        <th><b>Bonus</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each affilates}}
+      <tr>
+        <td><a href="http://steamcommunity.com/profiles/{{this.steamid}}" target="_blank">{{this.username}}</a></td>
+        <td style="text-align: center;">
+          {{#if this.deposited}}
+            <i class="fa fa-circle depositedTrue"></i>
+          {{else}}
+             <i class="fa fa-circle depositedFalse"></i>
+          {{/if}}
+        </td>
+        <td>{{formatTime this.date}}</td>
+        <td>{{toInt this.bonus}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+</div>
+<div id="promocodeModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Setup referal link</h4>
+        {{#if currentUser.profile.promocode}}
+        Current link: <a href="http://csgo-ghost.com/ref/{{currentUser.profile.promocode}}">http://www.csgo-ghost.com/ref/{{currentUser.profile.promocode}}</a>
+        {{/if}}
+      </div>
+      <div class="modal-body">
+      <form role="form" id ="editPromocode">
+        <div class="form-group">
+          <label for="promocode">Enter new promocode: </label>
+          <input type="text" class="form-control" id="promocode">
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm</button>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</template>

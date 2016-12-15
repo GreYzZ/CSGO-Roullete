@@ -1,0 +1,18 @@
+<template name="ref">
+{{> navbar}}
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="well">
+      <h3>Partner program</h3>
+      {{#unless this.error}}
+      Do you want to be affilated with <a href="http://steamcommunity.com/profiles/{{this.steamid}}" target="_blank">{{this.username}}</a>?<br> 
+      <button type="button" class="btn btn-primary confirmAffilate" style="margin-top: 5px;">Confirm</button>
+      {{/unless}}
+      {{#if this.error}}
+        Error: {{{this.error}}}
+      {{/if}}
+    </div>
+  </div>
+</div>  
+
+</template>

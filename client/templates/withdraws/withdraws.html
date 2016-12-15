@@ -1,0 +1,94 @@
+<template name="csgo">
+{{> navbar}}
+{{#with currentWithdraws}}
+  <div class="alert alert-success">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <b>Offer status:
+      {{#if isWaiting status}} processing offer. <a href="#" class="cancelOffer">Cancel offer</a>.{{/if}}
+      {{#if isSended status}} sended. <a href="https://steamcommunity.com/tradeoffer/{{tradeofferid}}/" target="_blank">Your offer link</a>.    
+        Also you can confirm trade offer in Steam client.
+      {{/if}}
+    </b>
+  </div>
+  {{/with}}
+{{#if tradeLinkApplyed}}
+<h3>Choose item to withdraw</h3>
+<hr />
+
+
+<h4>Balance: {{toInt currentUser.profile.money}} coins</h4>
+
+<hr />
+
+
+{{#each bots}}<button type="button" class="btn btn-info bot" data-name="{{this}}">{{this}}</button> &nbsp;{{/each}}<br><br>
+Read <a href="/faq">faq</a> to see how we calculate item prices
+<hr />
+
+You'll receive trade offer from <b>{{currentBot}}</b> bot.
+<hr />
+
+<div class="col-md-12">
+  <div class="col-md-8">
+  {{#unless inventoryEmpty}}<h2>Bot items</h2>{{/unless}}
+  {{#if inventoryEmpty}}This bot has no items in inventory{{/if}}
+  <hr />
+  {{#unless inventoryEmpty}}
+    <span style="font-size: 1.3em;">Sort by price:</span>
+      <a href="#" class="filterWitdrawItemsPriceLH">Low => High</a> |
+      <a href="#" class="filterWitdrawItemsPriceHL">High => Low</a> |
+      <a href="#" class="filterWitdrawItemsNameLH">A-Z</a> |
+      <a href="#" class="filterWitdrawItemsNameHL">Z-A</a>
+      <br>
+  {{/unless}}
+  {{#each itemGroup in getItemsInGroupsOfThree items}}
+    <div class="row">
+      {{#each item in itemGroup.items}}
+      {{#if notSold item.id}}
+        <div class="col-md-2 col-sm-2 col-xs-2 withdrawItem" id="{{item.id}}">
+        <span class="depositItemPrice">
+          {{item.price}}
+        </span>
+        <img src="http://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}" class="img-responsive withdrawImage" width="100" height="100">
+          {{item.name}}
+          <button type="button" class="btn btn-info btn-block withdrawBtn" value="{{item.id}}">Add to offer</button>
+        </div>
+      {{/if}}
+      {{/each}}
+    </div>
+  {{/each}}
+  <br><br>
+  </div>
+  <div class="col-md-4 offer">
+  {{#unless inventoryEmpty}}<h2>Offer</h2>{{/unless}}
+  <hr />
+    {{#each itemGroup in offerGroup offerItems}}
+    <div class="row">
+      {{#each item in itemGroup.items}}
+        <div class="col-md-2 col-sm-2 col-xs-2 withdrawItem">
+        <span class="depositItemPrice">
+          {{price}}
+        </span>
+        <img src="http://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}" class="img-responsive withdrawImage" width="100" height="100">
+          {{item.name}}
+          <button type="button" class="btn btn-warning btn-block removeBtn" value="{{item.id}}">Remove</button>
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+  {{#if WithdrawOffersNotNull}}
+  <div class="row">
+  <button type="button" class="btn btn-info btn-block createWithdrawOffer">Create offer (Total: {{total}} coins)</button>
+  </div>
+  {{/if}}
+  </div>
+</div>
+
+{{else}}
+<div class="centered">
+  <h3>Please add your trade offer link on <a href="/profile">profile page</a> to make withdraws</h3>
+</div>
+{{/if}}
+<br><br>
+{{> footer}}
+</template>

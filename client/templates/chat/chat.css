@@ -1,0 +1,19 @@
+.messages {
+  width: 100%;
+  max-height: 500px;
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.chat h3 {
+  margin-top: 0px;
+}
+.chatrules {
+  list-style-type: square;
+}
+.squareInputBorders {
+  border-radius: 0px !important;
+}
+.selectChannel {
+  border-radius: 0px;
+}

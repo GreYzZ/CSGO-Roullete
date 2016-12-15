@@ -1,0 +1,76 @@
+<template name="roundHistory">
+{{> navbar}}
+<h4>Find round by ID</h4>
+
+<form role="form" id ="findRound">
+  <div class="form-inline">
+  <div class="form-group">
+    <label for="roundid">Round ID:</label>
+    <input type="text" class="form-control" id="roundid">
+  </div>
+  <button type="submit" class="btn btn-primary">Find</button>
+  </div>
+</form>
+
+<br>
+{{#if round}}
+  {{#with round}}
+    <b>Date</b>: {{formatTime date}}<br>
+    <b>Result</b>: <i class="fa fa-circle " style="color: {{side this.result}}; font-size: 1.8em;"></i><br>
+    <b>Terrorists</b>: {{terrorists}} <br>
+    <b>CT</b>: {{ct}}<br>
+    <b>Bomb</b>: {{bomb}}<br>
+    {{#if isLengthNotNull bets}}
+      <h3>Round details (bets)</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th class="centerTh">Side</th>
+            <th>bet</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each bets}}
+          <tr>
+            <td>{{userid}}</td>
+            <td>{{username}}</td>
+            <td class="centerTd"><img src="{{historySide this.side}}" width="20" height="20"></td>
+            <td>{{bet}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <br>
+    {{/if}}
+  {{/with}}
+{{/if}}
+
+
+<h3>Round list</h3>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Round ID</th>
+        <th class="centerTh">Result</th>
+        <th>Terrorists</th>
+        <th>CT</th>
+        <th>Bomb</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{roundId}}</td>
+        <td class="centerTd"><i class="fa fa-circle " style="color: {{side this.result}}; font-size: 1.8em;"></i></td>
+        <td>{{terrorists}}</td>
+        <td>{{ct}}</td>
+        <td>{{bomb}}</td>
+        <th>{{formatTime date}}</th>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

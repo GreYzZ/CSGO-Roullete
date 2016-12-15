@@ -1,0 +1,53 @@
+<template name="settings">
+{{> navbar}}
+<div class="container">
+  <a href="{{pathFor 'editfaq'}}">Edit FAQ</a> | <a href="{{pathFor 'editGiveaway'}}">Edit giveaway</a>
+  {{#with settings}}
+    <h3>Bot settings</h3>
+    <hr>
+    <form role="form">
+      <div class="form-group">
+        <label for="botsnames">Bots names</label>
+        <input type="text" class="form-control" id="botsnames">
+      </div>
+      <div class="form-group">
+        <label for="alert">Index page alert text</label>
+        <input type="text" class="form-control" id="alert">
+      </div>
+      <div class="form-group">
+        <label for="minimalPrice">Minimal item price for incoming offers (in coins)</label>
+        <input type="text" class="form-control" id="minimalPrice">
+      </div>
+      <div class="form-group">
+        <label for="startBonus">Start bonus on new user register</label>
+        <input type="number" class="form-control" id="startBonus">
+      </div>
+      <div class="form-group">
+        <label for="partnerBonus">Partner (referral) bonus</label>
+        <input type="text" class="form-control" id="partnerBonus">
+      </div>
+      <div class="form-group">
+        <label for="disableRoulette">Roulette status (active == true, disabled == false)</label>
+        <input type="text" class="form-control" id="disableRoulette">
+      </div>
+      <div class="form-group">
+        <label for="withdrawsStatus">Withdraws active true/false</label>
+        <input type="text" class="form-control" id="withdrawsStatus">
+      </div>
+      <div class="form-group">
+        <label for="betToChat">Bet to send chat messages</label>
+        <input type="text" class="form-control" id="betToChat">
+      </div>
+      <div class="form-group">
+        <label for="minWithdraw">Min withdraw item price</label>
+        <input type="text" class="form-control" id="minWithdraw">
+      </div>
+      <div class="form-group">
+        <label for="discount">Discounts. Example: 500,5000,10000</label>
+        <input type="text" class="form-control" id="discounts">
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  {{/with}}
+</div>
+</template>

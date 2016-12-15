@@ -1,0 +1,17 @@
+.giveaway {
+  background-color: white;
+  margin-top: 10px;
+  border: solid 1px gray;
+  position: relative;
+}
+.giveAwayHeader {
+  background-color: white;
+}
+.giveawayApplyBtn {
+  display: block;
+  border-radius: 0px !important;
+}
+.giveaway-description {
+  color: gray;
+  font-size: 0.9em;
+}

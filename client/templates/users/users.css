@@ -1,0 +1,7 @@
+.verticalCentered {
+  display: table-cell;
+  vertical-align: middle;
+}
+.globalBan {
+  color: red;
+}

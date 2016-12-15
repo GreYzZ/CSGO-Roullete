@@ -1,0 +1,194 @@
+<template name="users">
+{{> navbar}}
+<a href="{{pathFor 'coinsTransfersHistory'}}">Coins transfers history</a> | <a href="{{pathFor 'roundHistory'}}">Round history</a> | <a href="{{pathFor 'withdrawsHistoryAdmin'}}">Withdraws history</a> | <a href="{{pathFor 'depositHistoryAdmin'}}">Deposit history</a> | <a href="{{pathFor 'prices'}}">Price list</a>
+<br>
+<h4>Find user by steam id</h4>
+
+<form role="form" id ="findUser" class="form-inline" autocomplete="off">
+  <div class="input-group">
+    <input type="text" class="form-control" id="steamid" placeholder="User Steam Id">
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-primary">Find</button>
+    </span>
+  </div>
+</form>
+
+<br>
+{{#if user}}
+  {{#with user}}
+      <h3>User details</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Steamid</th>
+            <th>Username</th>
+            <th>Group</th>
+            <th>Created</th>
+            <th>Last login</th>
+            {{#if superAdmin currentUser._id}}<th>Change balance</th>{{/if}}
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><img src="{{profile.avatar}}" class="img-rounded"></td>
+            <td>{{_id}}</td>
+            <td>{{profile.id}}</td>
+            <td>{{profile.username}}</td>
+            <td>{{profile.group}}</td>
+            <td>{{formatTime createdAt}}</td>
+            <td>{{formatTime status.lastLogin.date}}, {{status.lastLogin.ipAddr}}</td>
+            {{#if superAdmin currentUser._id}}
+            <td>
+              <form role="form" id ="changeBalance" class="form-inline" autocomplete="off">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="balance" value="{{profile.money}}">
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">change</button>
+                  </span>
+                </div>
+              </form>
+            </td>
+            {{/if}}
+          </tr>
+
+        </tbody>
+      </table>
+      <br>
+  {{/with}}
+{{/if}}
+
+<hr />
+<h1>User list</h1>
+Sort by balance: <a href="#" class="sortByBalanceLH">Low -> High</a> | <a href="#" class="sortByBalanceHL">High -> Low</a><br>
+Show options: <a href="#" class="showAllUsers">All users</a> | <a href="#" class="showUsersWithChatBan">With chat ban</a> |
+<a href="#" class="showUsersWithGlobalBan">With global ban</a><br>
+Filter by group: <a href="#" class="showUsersDefaultGroup">Default</a> | <a href="#" class="showUsersModeratorGroup">Moderator</a> |
+<a href="#" class="showUsersStreamerGroup">Streamer</a> | <a href="#" class="showUsersAdminGroup">Admin</a> {{#if superAdmin currentUser._id}}| <a href="#" class="showUsersSuperAdminGroup">SuperAdmin</a> {{/if}}
+<hr>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>UserID</th>
+        <th>Steam name</th>
+        {{#if superAdmin currentUser._id}}<th>Group</th>{{/if}}
+        <th>SteamID</th>
+        <th>Balance</th>
+        {{#if superAdmin currentUser._id}}<th></th>{{/if}}
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>
+          {{#if profile.banned}}
+            <span class="globalBan">{{profile.username}}</span>
+          {{else}}
+            {{profile.username}}
+          {{/if}}
+        </td>
+        {{#if superAdmin currentUser._id}}<td>{{profile.group}}</td>{{/if}}
+        <td>{{profile.id}}</td>
+        <td>{{toInt profile.money}}</td>
+        {{#if superAdmin currentUser._id}}
+        <th>
+
+            <form role="form" id ="changeBalance" class="form-inline" autocomplete="off">
+                <div class="input-group">
+                  <input type="text" class="form-control col-md-3" id="balance" value="{{profile.money}}">
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">change</button>
+                  </span>
+                </div>
+              </form>
+
+        </th>
+        {{/if}}
+        <th>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Manage group
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            {{#if currentUserGroupAdmin _id}}
+              {{#if superAdmin currentUser._id}}<li><a href="#" class="removeAdmin">Remove from admin group</a></li>{{/if}}
+            {{/if}}
+            {{#if currentUserGroupSuperAdmin _id}}
+              {{#if superAdmin currentUser._id}}
+                <li><a href="#" class="removeSuperAdmin">Remove from Super Admin group</a></li>
+              {{/if}}
+            {{/if}}
+            {{#if currentUserGroupStreamer _id}}
+              <li><a href="#" class="removeStreamer">Remove from streamer group</a></li>
+            {{/if}}
+            {{#if currentUserGroupModerator _id}}
+              <li><a href="#" class="removeModerator">Remove from moderator group</a></li>
+            {{/if}}
+            {{#if currentUserGroupDefault _id}}
+              {{#if superAdmin currentUser._id}}
+                <li><a href="#" class="giveAdmin">Give admin permissions</a></li>
+                <li><a href="#" class="giveSuperAdmin">Give super admin permissions</a></li>
+              {{/if}}
+              <li><a href="#" class="giveStreamer">Give streamer permissions</a></li>
+              <li><a href="#" class="giveModerator">Give moderator permissions</a></li>
+            {{/if}}
+          </ul>
+        </div>
+      </th>
+      <th>
+          <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+              {{#if profile.chatBanned}}
+                <li><a href="#" class="removeChatBan">Remove ban chat</a></li>
+              {{else}}
+                <li><a href="#" class="openBanChatDialog" data-toggle="modal" data-target="#banChatModal">Apply ban chat</a></li>
+              {{/if}}
+              {{#if profile.banned}}
+                <li><a href="#" class="removeBan">Remove global ban</a></li>
+              {{else}}
+                <li><a href="#" class="applyBan">Apply global ban</a></li>
+              {{/if}}
+          </ul>
+        </div>
+        </th>
+
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+
+
+<div id="banChatModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ban user</h4>
+      </div>
+      <div class="modal-body">
+      {{#with banTarget}}
+        {{profile.username}}<br>
+
+      Choose date:
+        <div class="input-group datetimepicker">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input class="set-due-date form-control" type="text" id="bandate"/>
+        </div>
+        <a href="#" class="applyChatBan">Apply ban chat</a>
+      {{/with}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</template>
